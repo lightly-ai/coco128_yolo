@@ -55,11 +55,8 @@ def mask_to_yolo_line(mask: np.ndarray) -> list[float] | None:
 def convert_split(split: str, category_id_to_name: dict[int, str]) -> None:
     ann_file = PANOPTIC / "annotations" / f"panoptic_{split}.json"
     mask_dir = PANOPTIC / "annotations" / f"panoptic_{split}"
-    image_dir = PANOPTIC / "images" / split
     label_dir = OUT / "labels" / split
-    out_image_dir = OUT / "images" / split
     label_dir.mkdir(parents=True, exist_ok=True)
-    out_image_dir.mkdir(parents=True, exist_ok=True)
 
     data = json.loads(ann_file.read_text())
     thing_ids = set(category_id_to_name.keys())
@@ -89,11 +86,6 @@ def convert_split(split: str, category_id_to_name: dict[int, str]) -> None:
         (label_dir / f"{file_stem}.txt").write_text(
             "\n".join(lines) + ("\n" if lines else "")
         )
-
-        src_image = image_dir / f"{file_stem}.jpg"
-        dst_image = out_image_dir / f"{file_stem}.jpg"
-        if not dst_image.exists():
-            dst_image.write_bytes(src_image.read_bytes())
         n_images += 1
 
     print(f"{split}: {n_images} images, {n_instances} instances")
@@ -119,6 +111,7 @@ format: yolo
 path: .
 train: images/train2017
 val: images/val2017
+skip_if_label_file_missing: true
 
 names:
 {names_yaml}

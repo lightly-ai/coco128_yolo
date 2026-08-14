@@ -26,11 +26,8 @@ def panoptic_id_map(png_path: Path) -> np.ndarray:
 def convert_split(split: str) -> set[int]:
     ann_file = PANOPTIC / "annotations" / f"panoptic_{split}.json"
     mask_dir = PANOPTIC / "annotations" / f"panoptic_{split}"
-    image_dir = PANOPTIC / "images" / split
     out_mask_dir = OUT / "masks" / split
-    out_image_dir = OUT / "images" / split
     out_mask_dir.mkdir(parents=True, exist_ok=True)
-    out_image_dir.mkdir(parents=True, exist_ok=True)
 
     data = json.loads(ann_file.read_text())
     seen_category_ids: set[int] = set()
@@ -49,11 +46,6 @@ def convert_split(split: str) -> set[int]:
             seen_category_ids.add(category_id)
 
         Image.fromarray(class_mask).save(out_mask_dir / f"{file_stem}.png")
-
-        src_image = image_dir / f"{file_stem}.jpg"
-        dst_image = out_image_dir / f"{file_stem}.jpg"
-        if not dst_image.exists():
-            dst_image.write_bytes(src_image.read_bytes())
 
     print(f"{split}: {len(data['annotations'])} masks written")
     return seen_category_ids
@@ -79,10 +71,10 @@ def main() -> None:
 # Class ids match the COCO panoptic category ids (both "thing" and "stuff"
 # classes), plus 0 = "unlabeled" for pixels with no panoptic segment.
 train:
-  images: images/train2017
+  images: ../images/train2017
   masks: masks/train2017
 val:
-  images: images/val2017
+  images: ../images/val2017
   masks: masks/val2017
 
 classes:

@@ -4,6 +4,7 @@ distillation.
 Download with
 
 ```
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/images.zip && unzip -q images.zip
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/pretrain_distill.zip && unzip -q pretrain_distill.zip
 ```
 
@@ -14,7 +15,7 @@ import lightly_train
 
 lightly_train.pretrain(
     out="out/my_pretrain_experiment",
-    data="pretrain_distill/images",
+    data="images/train2017",
     model="torchvision/resnet50",
     method="distillation",
 )

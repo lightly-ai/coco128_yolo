@@ -3,6 +3,7 @@ First 128 train and val images from the COCO dataset in YOLO object detection fo
 Download with
 
 ```
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/images.zip && unzip -q images.zip
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/object_detection.zip && unzip -q object_detection.zip
 ```
 

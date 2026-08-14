@@ -9,6 +9,7 @@ panoptic segment for that pixel).
 Download with
 
 ```
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/images.zip && unzip -q images.zip
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/semantic_segmentation.zip && unzip -q semantic_segmentation.zip
 ```
 
