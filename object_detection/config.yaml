@@ -1,7 +1,7 @@
 # COCO128 YOLO format config file
 path: .
-train: images/train
-val: images/val
+train: images/train2017
+val: images/val2017
 
 names:
   0: person

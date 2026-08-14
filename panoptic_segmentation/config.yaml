@@ -1,0 +1,9 @@
+# COCO128 panoptic segmentation config file
+train:
+  images: ../images/train2017
+  masks: annotations/panoptic_train2017
+  annotations: annotations/panoptic_train2017.json
+val:
+  images: ../images/val2017
+  masks: annotations/panoptic_val2017
+  annotations: annotations/panoptic_val2017.json
