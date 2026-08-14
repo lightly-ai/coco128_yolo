@@ -5,8 +5,10 @@ Download with
 
 ```
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/pretrain_distill.zip && unzip -q pretrain_distill.zip
 ```
+
+This task needs no labels, so the shared image pool is the whole download — there is no
+separate `pretrain_distill.zip`.
 
 Use directly with `lightly_train.pretrain`:
 
