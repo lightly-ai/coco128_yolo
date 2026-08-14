@@ -18,13 +18,15 @@ breaks the `../images/...` references used by the mask-based task configs below.
 | Instance segmentation | [`instance_segmentation/`](instance_segmentation) | `wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip && wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/instance_segmentation.zip && unzip -q instance_segmentation.zip` |
 | Panoptic segmentation | [`panoptic_segmentation/`](panoptic_segmentation) | `wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip && wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip` |
 | Semantic segmentation | [`semantic_segmentation/`](semantic_segmentation) | `wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip && wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/semantic_segmentation.zip && unzip -q semantic_segmentation.zip` |
-| Pretraining / distillation | [`pretrain_distill/`](pretrain_distill) | `wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip && wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/pretrain_distill.zip && unzip -q pretrain_distill.zip` |
+| Pretraining / distillation | [`pretrain_distill/`](pretrain_distill) | `wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip` |
 
-Every task needs `images.zip` (the shared image pool) plus its own task zip. Unzip both
-into the same directory — the task zip's `config.yaml` references `images/` by relative
-path (directly, or through an `images` symlink for the YOLO-format tasks), so `images/`
-must end up as a sibling of e.g. `object_detection/`. Run your training script from that
-same directory and reference the data as `data="object_detection/config.yaml"`.
+Every labeled task needs `images.zip` (the shared image pool) plus its own task zip.
+Unzip both into the same directory — the task zip's `config.yaml` references `images/` by
+relative path (directly, or through an `images` symlink for the YOLO-format tasks), so
+`images/` must end up as a sibling of e.g. `object_detection/`. Run your training script
+from that same directory and reference the data as `data="object_detection/config.yaml"`.
+Pretraining / distillation needs no labels, so `images.zip` on its own is enough — point
+`data` straight at `images/train2017`.
 
 `object_detection.zip` and `instance_segmentation.zip` ship an `images` entry that's a
 **symlink** to `../images`, not a real directory (required because lightly-train's YOLO
@@ -62,3 +64,7 @@ lightly-train's mask-based loaders silently skip any image with no matching mask
 `instance_segmentation/config.yaml` sets `skip_if_label_file_missing: true` for the same
 reason. `scripts/trim_panoptic.py` only trims the panoptic annotation JSON now; it no
 longer deletes images, since `images/` is shared with tasks that need the full 128.
+
+## Maintainers
+
+See [RELEASE.md](RELEASE.md) for how to build the download assets and cut a release.

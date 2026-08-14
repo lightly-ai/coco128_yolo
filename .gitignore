@@ -1,0 +1,5 @@
+# Release assets built by scripts/package_release.py
+dist/
+
+.DS_Store
+__pycache__/
