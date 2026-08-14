@@ -8,8 +8,8 @@ Class ids match the COCO panoptic "thing" category ids.
 Download with
 
 ```
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/instance_segmentation.zip && unzip -q instance_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/instance_segmentation.zip && unzip -q instance_segmentation.zip
 ```
 
 Use directly with `lightly_train.train_instance_segmentation`:

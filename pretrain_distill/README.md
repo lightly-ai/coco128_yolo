@@ -4,8 +4,8 @@ distillation.
 Download with
 
 ```
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/pretrain_distill.zip && unzip -q pretrain_distill.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/pretrain_distill.zip && unzip -q pretrain_distill.zip
 ```
 
 Use directly with `lightly_train.pretrain`:

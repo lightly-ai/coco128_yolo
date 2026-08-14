@@ -9,8 +9,8 @@ were trimmed down to the 100 images that actually have a mask — see
 Download with
 
 ```
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.1.0/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
 ```
 
 Use directly with `lightly_train.train_panoptic_segmentation`:
