@@ -9,22 +9,26 @@
 
 # Panoptic segmentation
 
-100 train and 100 val images from the COCO dataset with panoptic segmentation
-annotations (thing + stuff classes).
+100 train and 100 val images from the COCO dataset, with panoptic segmentation
+annotations. The annotations cover both thing and stuff classes.
 
-The upstream `coco128_panoptic` repo this was migrated from shipped 128 annotation
-entries per split but only 100 matching mask PNGs (an incomplete upload). Both splits
-were trimmed down to the 100 images that actually have a mask — see
+This data was migrated from the upstream `coco128_panoptic` repo. That repo listed 128
+annotation entries per split, but shipped only 100 matching mask PNGs. The upload was
+incomplete. Both splits were trimmed to the 100 images that have a mask, by
 `../scripts/trim_panoptic.py`.
 
-Download with
+## Download
+
+Unzip both archives into the same directory.
 
 ```
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
 ```
 
-Use directly with `lightly_train.train_panoptic_segmentation`:
+## Train
+
+Pass the config straight to `lightly_train.train_panoptic_segmentation`:
 
 ```python
 import lightly_train

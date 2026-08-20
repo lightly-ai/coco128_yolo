@@ -9,19 +9,21 @@
 
 # Pretraining / distillation
 
-First 128 train images from the COCO dataset without labels, for pretraining /
-distillation.
+First 128 train images from the COCO dataset, without labels. Use them for pretraining
+and distillation.
 
-Download with
+## Download
+
+This task needs no labels, so the shared image pool is the whole download. There is no
+separate `pretrain_distill.zip`.
 
 ```
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
 ```
 
-This task needs no labels, so the shared image pool is the whole download — there is no
-separate `pretrain_distill.zip`.
+## Train
 
-Use directly with `lightly_train.pretrain`:
+Point `data` straight at the image folder, and pass it to `lightly_train.pretrain`:
 
 ```python
 import lightly_train

@@ -9,22 +9,26 @@
 
 # Semantic segmentation
 
-100 train and 100 val images from the COCO dataset with single-channel semantic
-segmentation masks (thing + stuff classes).
+100 train and 100 val images from the COCO dataset, with single-channel semantic
+segmentation masks. The masks cover both thing and stuff classes.
 
-Derived from `panoptic_segmentation/`'s COCO panoptic annotations by mapping every
-pixel's panoptic segment to its category id — see
-`../scripts/build_semantic_segmentation.py`. Class id `0` means "unlabeled" (no
-panoptic segment for that pixel).
+The masks come from the COCO panoptic annotations in `panoptic_segmentation/`. Every
+pixel was mapped to the category id of its panoptic segment by
+`../scripts/build_semantic_segmentation.py`. Class id `0` means "unlabeled": no panoptic
+segment covers that pixel.
 
-Download with
+## Download
+
+Unzip both archives into the same directory.
 
 ```
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/semantic_segmentation.zip && unzip -q semantic_segmentation.zip
 ```
 
-Use directly with `lightly_train.train_semantic_segmentation`:
+## Train
+
+Pass the config straight to `lightly_train.train_semantic_segmentation`:
 
 ```python
 import lightly_train

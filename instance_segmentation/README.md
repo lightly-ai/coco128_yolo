@@ -9,21 +9,26 @@
 
 # Instance segmentation
 
-100 train and 100 val images from the COCO dataset with YOLO-seg polygon instance
-segmentation labels ("thing" classes only).
+100 train and 100 val images from the COCO dataset, with YOLO-seg polygon instance
+segmentation labels. The labels cover the 80 "thing" classes only.
 
-Derived from `panoptic_segmentation/`'s COCO panoptic annotations by converting each
-instance's panoptic mask to a polygon — see `../scripts/build_instance_segmentation.py`.
-Class ids match the COCO panoptic "thing" category ids.
+The labels come from the COCO panoptic annotations in `panoptic_segmentation/`. Each
+instance mask was converted to a polygon by `../scripts/build_instance_segmentation.py`.
+The class ids are the COCO panoptic "thing" category ids, not the contiguous 0-79 ids
+that `object_detection/` uses.
 
-Download with
+## Download
+
+Unzip both archives into the same directory.
 
 ```
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
 wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/instance_segmentation.zip && unzip -q instance_segmentation.zip
 ```
 
-Use directly with `lightly_train.train_instance_segmentation`:
+## Train
+
+Pass the config straight to `lightly_train.train_instance_segmentation`:
 
 ```python
 import lightly_train
