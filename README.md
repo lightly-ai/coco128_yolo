@@ -1,12 +1,28 @@
-# coco128
+<div align="center">
+  <a href="https://www.lightly.ai/lightly-train">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lightly-ai/lightly-train/main/docs/source/_static/lightly_train_dark.svg">
+      <img src="https://raw.githubusercontent.com/lightly-ai/lightly-train/main/docs/source/_static/lightly_train_light.svg" alt="LightlyTrain" width="400" style="max-width: 100%; height: auto;">
+    </picture>
+  </a>
 
-Small, ready-to-use example datasets for every task
-[LightlyTrain](https://github.com/lightly-ai/lightly-train) supports training, all
-derived from the first 128 images of COCO train2017 / val2017. Each task has its own
-subfolder with a `config.yaml` that works directly as `data=` input to the
-corresponding `lightly_train.train_*` function. All tasks share one `images/` pool
-(released as its own `images.zip` asset) instead of each shipping its own copy, so you
-only have to download the image bytes once no matter how many tasks you use.
+<h1>COCO128 Example Datasets</h1>
+
+<p><em>One small dataset per task, ready to train</em></p>
+
+[![Documentation](https://img.shields.io/badge/Documentation-blue)](https://docs.lightly.ai/train/stable/)
+[![LightlyTrain](https://img.shields.io/badge/lightly--train-%E2%89%A5%200.16.3-blue)](https://github.com/lightly-ai/lightly-train)
+[![Discord](https://img.shields.io/discord/752876370337726585?logo=discord&logoColor=white&label=discord&color=7289da)](https://discord.gg/xvNJW94)
+
+</div>
+
+Example datasets for every task
+[LightlyTrain](https://github.com/lightly-ai/lightly-train) supports, all derived from
+the first 128 images of COCO train2017 / val2017. Each task has its own subfolder with a
+`config.yaml` that works directly as `data=` input to the corresponding
+`lightly_train.train_*` function. All tasks share one `images/` pool (released as its own
+`images.zip` asset) instead of each shipping its own copy, so you only have to download
+the image bytes once no matter how many tasks you use.
 
 Requires `lightly-train >= 0.16.3` — earlier versions resolve relative `data=` paths
 against the current working directory instead of the YAML config file's location, which
@@ -68,3 +84,23 @@ longer deletes images, since `images/` is shared with tasks that need the full 1
 ## Maintainers
 
 See [RELEASE.md](RELEASE.md) for how to build the download assets and cut a release.
+
+## About Lightly
+
+[Lightly](https://www.lightly.ai) builds open-source tools for computer vision teams.
+
+<p>
+<a href="https://github.com/lightly-ai/lightly-train"><picture><source media="(prefers-color-scheme: dark)" srcset="https://storage.googleapis.com/lightly-public/train/lightlytrain_standard_horizontal_light.png"><img src="https://storage.googleapis.com/lightly-public/train/lightlytrain_standard_horizontal_dark.png" alt="LightlyTrain" height="40"/></picture></a>
+<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+<a href="https://github.com/lightly-ai/lightly-studio"><picture><source media="(prefers-color-scheme: dark)" srcset="https://storage.googleapis.com/lightly-public/studio/lightlystudio_standard_horizontal_light.png"><img src="https://storage.googleapis.com/lightly-public/studio/lightlystudio_standard_horizontal_dark.png" alt="LightlyStudio" height="40"/></picture></a>
+</p>
+
+- [LightlyTrain](https://github.com/lightly-ai/lightly-train) — pretraining, fine-tuning
+  and distillation. The datasets here are its example data.
+- [LightlyStudio](https://github.com/lightly-ai/lightly-studio) — curate, annotate and
+  manage image datasets.
+- [LightlySSL](https://github.com/lightly-ai/lightly) — self-supervised learning
+  framework.
+
+Questions go to [Discord](https://discord.gg/xvNJW94). For commercial use,
+[contact us](https://www.lightly.ai/contact).
