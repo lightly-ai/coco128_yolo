@@ -71,10 +71,10 @@ def main() -> None:
 # Class ids match the COCO panoptic category ids (both "thing" and "stuff"
 # classes), plus 0 = "unlabeled" for pixels with no panoptic segment.
 train:
-  images: ../images/train2017
+  images: images/train2017
   masks: masks/train2017
 val:
-  images: ../images/val2017
+  images: images/val2017
   masks: masks/val2017
 
 classes:

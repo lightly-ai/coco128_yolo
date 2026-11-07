@@ -14,11 +14,10 @@ The class ids are the contiguous 0-79 YOLO numbering.
 
 ## Download
 
-Unzip both archives into the same directory.
+The archive holds the images, labels and `config.yaml`:
 
 ```
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/object_detection.zip && unzip -q object_detection.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/object_detection.zip && unzip -q object_detection.zip
 ```
 
 ## Train
@@ -32,6 +31,19 @@ lightly_train.train_object_detection(
     out="out/my_experiment",
     model="ltdetrv2-s-coco",
     data="object_detection/config.yaml",
+)
+```
+
+## Pretrain and distill
+
+Pretraining and distillation need no labels. Point `data` at the image folder:
+
+```python
+lightly_train.pretrain(
+    out="out/my_pretrain",
+    model="dinov3/vitt16",
+    method="distillation",
+    data="object_detection/images/train2017",
 )
 ```
 
