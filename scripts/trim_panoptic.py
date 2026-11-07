@@ -4,10 +4,9 @@ upload). Trim the migrated panoptic_segmentation/ JSON to only the entries that
 actually have a mask, so downstream consumers (panoptic/instance/semantic
 segmentation builders) don't hit a missing-file error.
 
-This only trims the annotation JSON, not images: images/ is a repo-wide pool shared
-with object_detection, instance_segmentation, and pretrain_distill, which need the
-full 128-image set. The 28-per-split images with no panoptic mask are simply skipped
-by lightly-train's mask-based loaders (they only yield images whose mask file exists).
+This only trims the annotation JSON. Each task folder ships only the images it has
+labels for, so the 28-per-split images with no panoptic mask are not part of
+panoptic_segmentation/images/ at all.
 """
 
 import json

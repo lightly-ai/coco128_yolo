@@ -111,7 +111,6 @@ format: yolo
 path: .
 train: images/train2017
 val: images/val2017
-skip_if_label_file_missing: true
 
 names:
 {names_yaml}

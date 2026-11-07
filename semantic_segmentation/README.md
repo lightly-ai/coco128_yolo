@@ -19,11 +19,10 @@ segment covers that pixel.
 
 ## Download
 
-Unzip both archives into the same directory.
+The archive holds the images, labels and `config.yaml`:
 
 ```
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/semantic_segmentation.zip && unzip -q semantic_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/semantic_segmentation.zip && unzip -q semantic_segmentation.zip
 ```
 
 ## Train

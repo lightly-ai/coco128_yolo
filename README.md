@@ -34,88 +34,66 @@ lightly_train.train_object_detection(
 
 ## Datasets
 
-| Task | Folder | Images used | Labels |
+| Task | Folder | Images | Labels |
 |---|---|---|---|
 | Object detection | [`object_detection/`](object_detection) | 128 train, 128 val | YOLO boxes, class ids 0-79 |
 | Instance segmentation | [`instance_segmentation/`](instance_segmentation) | 100 train, 100 val | YOLO-seg polygons, 80 thing classes |
 | Panoptic segmentation | [`panoptic_segmentation/`](panoptic_segmentation) | 100 train, 100 val | COCO panoptic JSON and mask PNGs |
 | Semantic segmentation | [`semantic_segmentation/`](semantic_segmentation) | 100 train, 100 val | Class-index PNG masks, 130 classes |
-| Pretraining, distillation | [`pretrain_distill/`](pretrain_distill) | 128 train | none |
 
-The `images/` pool always holds 128 train and 128 val images. [Provenance](#provenance)
-explains why three of the tasks label only 100 of them.
+Every task folder is self-contained: it holds its own images, labels and `config.yaml`.
+[Provenance](#provenance) explains why three of the tasks have only 100 images per split.
+
+Pretraining and distillation need no labels. Use the object detection images:
+`data="object_detection/images/train2017"`.
 
 ## Requirements
 
-lightly-train 0.16.3 or later. Older versions resolve a relative `data=` path against the
-working directory, not against the location of the config file. This breaks the
-`../images/...` paths that the mask-based configs use.
+lightly-train 0.16.3 or later. Older versions resolve the relative paths inside a
+`config.yaml` against the working directory, not against the location of the config file.
 
 ## Download
 
-A labeled task needs two archives: the shared image pool, and the labels for that task.
-Unzip both into the same directory.
+Each task is one archive. Take the line for your task:
 
 ```bash
-# The image pool. Every task needs it.
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
-
-# The labels. Take the line for your task.
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/object_detection.zip && unzip -q object_detection.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/instance_segmentation.zip && unzip -q instance_segmentation.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/semantic_segmentation.zip && unzip -q semantic_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/object_detection.zip && unzip -q object_detection.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/instance_segmentation.zip && unzip -q instance_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/semantic_segmentation.zip && unzip -q semantic_segmentation.zip
 ```
-
-Pretraining and distillation use no labels. For those two, `images.zip` is the whole
-download. Point `data` at `images/train2017`.
 
 ## Layout
 
-The archives carry no wrapper directory. After you unzip, the task folder and `images/`
-are siblings:
+Each archive unzips into one task folder:
 
 ```text
-.
+object_detection/
+├── config.yaml
 ├── images/
 │   ├── train2017/          128 images
 │   └── val2017/            128 images
-└── object_detection/
-    ├── config.yaml
-    ├── images -> ../images
-    └── labels/
+└── labels/
+    ├── train2017/          128 label files
+    └── val2017/            128 label files
 ```
 
-Each config points at `images/` by a relative path, so this layout is what makes the
-paths resolve. Run your training script from this directory. Then reference the data as
-`data="object_detection/config.yaml"`.
+The paths in `config.yaml` are relative to the config file, so the folder works wherever
+you put it. Reference it as `data="object_detection/config.yaml"` from the directory you
+unzipped into.
 
-All five tasks read the same `images/` pool. You download the image bytes one time, for
-any number of tasks.
-
-### The images symlink
-
-In `object_detection/` and `instance_segmentation/`, the `images` entry is a symlink to
-`../images`. It is not a real directory. The YOLO loader in lightly-train takes the
-labels directory from the same base path as the images directory. The two must therefore
-be siblings inside one task folder.
-
-Most versions of `unzip` keep the symlink. Some Windows zip tools write it out as a text
-file that holds the target path. If that happens, make the link by hand:
-
-```
-ln -s ../images object_detection/images         # macOS, Linux
-mklink /D object_detection\images ..\images     # Windows
-```
-
-Do the same for `instance_segmentation/images`.
+Older releases: `v0.0.2` used a shared `images.zip` plus a symlink in each task folder.
+`v0.0.1` shipped a single flat `coco128_yolo.zip`. Both stay available for older docs.
 
 ## Provenance
 
-- `object_detection/`, `pretrain_distill/`: the original first-128-image YOLO and
-  unlabeled subsets. Only the folder location changed.
-- `panoptic_segmentation/`: migrated from the original `coco128_panoptic` repo. See
-  `scripts/trim_panoptic.py`.
+- `object_detection/`: the original first-128-image YOLO subset. Its train images are
+  also the unlabeled set formerly published as `lightly-ai/coco128_unlabeled`. Two train
+  images (`000000000250`, `000000000508`) contain no objects and have empty label files.
+  Up to `v0.0.2`, their label files were missing and two label files for images outside
+  the subset (`000000000656`, `000000000659`) were shipped instead.
+- `panoptic_segmentation/`: migrated from the original `lightly-ai/coco128_panoptic`
+  repo. See `scripts/trim_panoptic.py`.
 - `instance_segmentation/`: YOLO-seg polygon labels, built from the COCO panoptic
   annotations in `panoptic_segmentation/` (thing classes only). See
   `scripts/build_instance_segmentation.py`. The class ids are the COCO panoptic category
@@ -124,18 +102,13 @@ Do the same for `instance_segmentation/images`.
   panoptic annotations (thing and stuff classes). See
   `scripts/build_semantic_segmentation.py`. Class id `0` means "unlabeled".
 
-### Why three tasks label only 100 images
+### Why three tasks have only 100 images
 
 The upstream `coco128_panoptic` repo listed 128 annotation entries per split, but shipped
 only 100 mask PNGs. The upload was incomplete. Both splits were trimmed to the 100 images
 that have a mask. `instance_segmentation/` and `semantic_segmentation/` come from
-`panoptic_segmentation/`, so all three cover the same 100 train and 100 val images.
-
-The `images/` pool keeps all 128 images per split, because object detection and
-pretraining need them. The mask-based loaders in lightly-train skip an image with no
-matching mask, and `instance_segmentation/config.yaml` sets
-`skip_if_label_file_missing: true` for the same reason. `scripts/trim_panoptic.py` now
-trims the panoptic annotation JSON only. It no longer deletes images.
+`panoptic_segmentation/`, so all three cover the same 100 train and 100 val images, and
+each ships exactly those images.
 
 ## Maintainers
 

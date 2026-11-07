@@ -19,11 +19,10 @@ incomplete. Both splits were trimmed to the 100 images that have a mask, by
 
 ## Download
 
-Unzip both archives into the same directory.
+The archive holds the images, labels and `config.yaml`:
 
 ```
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/images.zip && unzip -q images.zip
-wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.2/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
+wget https://github.com/lightly-ai/coco128_yolo/releases/download/v0.0.3/panoptic_segmentation.zip && unzip -q panoptic_segmentation.zip
 ```
 
 ## Train
